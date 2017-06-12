@@ -18,6 +18,7 @@ class App extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
 
@@ -38,11 +39,19 @@ class App extends React.Component {
 
   }
 
+// Create a function here that deletes the specific task from the App.js State.
+  handleDelete(e){
+    // These consoles are just to make sure that this function is being called.
+    console.log(e)
+    console.log(this.state)
+  }
 
   render() {
 
     let tasks = this.state.tasks.map((task)=>
-      <Todo task={task} />
+    // Passing in this.handleDelete as a property to Todo.
+    // This means that we can call handleDelete from the child component.
+      <Todo task={task} del={this.handleDelete}/>
     )
 
     return (
