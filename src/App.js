@@ -14,11 +14,7 @@ class App extends React.Component {
       tasks: ["first", "second", "third"],
       input: ''
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-
-    // Now this.handleDelete can be called with the scoped variables
-    this.handleDelete = this.handleDelete.bind(this)
+    // manualling bind your functions here
   }
 
 
@@ -39,11 +35,7 @@ class App extends React.Component {
 
   }
 
-  // Create a function here that deletes the specific task from the App.js State.
   handleDelete(e){
-    // These console logs are just to make sure that this function is being called.
-    console.log(e)
-    console.log(this.state)
     this.setState({
       tasks: this.state.tasks.filter( (task)=> task !== e)
     })
@@ -52,16 +44,16 @@ class App extends React.Component {
   render() {
 
     let tasks = this.state.tasks.map((task)=>
-    // Passing in this.handleDelete as a property to Todo.
-    // This means that we can call handleDelete from the child component.
-      <Todo task={task} del={this.handleDelete}/>
+      // Change this passed in function
+      <Todo task={task} del={ (e)=>this.handleDelete(e)}/>
     )
 
     return (
       <div>
-        <form onSubmit={ this.handleSubmit }>
+      {/*Change this passed in function */}
+        <form onSubmit={ (event)=>this.handleSubmit(event) }>
 
-          <input onChange={ this.handleChange } />
+          <input onChange={ (event)=>this.handleChange(event) } />
           <input type="submit"/>
         </form>
 

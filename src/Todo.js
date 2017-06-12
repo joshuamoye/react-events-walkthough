@@ -8,13 +8,8 @@ class Todo extends React.Component{
     this.state={
       complete: false
     }
-    this.handleDeleteClick = this.handleDeleteClick.bind(this)
-  }
+    // manualling bind your functions here
 
-  handleDeleteClick(e){
-      // We're going to use the function in our props
-      // to pass information back to the parent
-      this.props.del(this.props.task)
   }
 
 
@@ -49,8 +44,8 @@ render(){
 
     <div>
       <li>{this.props.task}
-
-        <button onClick={ this.handleDeleteClick }>Delete</button>
+      {/* change  the below code from a function to a variable */}
+        <button onClick={ ()=>this.props.del(this.props.task) }>Delete</button>
 
         <button onClick={ (event)=> this.handleClick(event) }>complete</button>
       </li>
@@ -60,7 +55,8 @@ render(){
     :
     <div>
       <li>{this.props.task}
-        <button onClick={ this.handleDeleteClick }>Delete</button>
+      {/* change  the below code from a function to a variable */}
+        <button onClick={ ()=>this.props.del(this.props.task) }>Delete</button>
       </li>
       <br></br>
       mission complete
