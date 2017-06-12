@@ -7,6 +7,8 @@ import Todo from './Todo';
 
 
 class App extends React.Component {
+
+
   constructor(){
     super();
 
@@ -14,6 +16,8 @@ class App extends React.Component {
       tasks: ["first", "second", "third"],
       input: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
 
@@ -35,20 +39,17 @@ class App extends React.Component {
   }
 
 
-
-
-
   render() {
 
     let tasks = this.state.tasks.map((task)=>
       <Todo task={task} />
     )
+
     return (
       <div>
+        <form onSubmit={ this.handleSubmit }>
 
-        <form onSubmit={(event)=> this.handleSubmit(event)}>
-
-          <input onChange={(event)=>this.handleChange(event)} />
+          <input onChange={ this.handleChange } />
           <input type="submit"/>
         </form>
 
