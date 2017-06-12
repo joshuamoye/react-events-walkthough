@@ -1,8 +1,6 @@
 // Notice that below, I did not include , {Component} after import
 // React
 import React from 'react';
-
-//
 import Todo from './Todo';
 
 
@@ -18,6 +16,8 @@ class App extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+
+    // Now this.handleDelete can be called with the scoped variables
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -39,11 +39,14 @@ class App extends React.Component {
 
   }
 
-// Create a function here that deletes the specific task from the App.js State.
+  // Create a function here that deletes the specific task from the App.js State.
   handleDelete(e){
-    // These consoles are just to make sure that this function is being called.
+    // These console logs are just to make sure that this function is being called.
     console.log(e)
     console.log(this.state)
+    this.setState({
+      tasks: this.state.tasks.filter( (task)=> task !== e)
+    })
   }
 
   render() {
