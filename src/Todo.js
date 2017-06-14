@@ -6,19 +6,29 @@ class Todo extends React.Component{
   constructor(){
     super();
     this.state={
-      complete: false
+      complete: false,
+      newInput: "",
+      showUpdateField: false
     }
     // manualling bind your functions here
+    this.updateInput = this.updateInput.bind(this);
+    this.updateProp = this.updateProp.bind(this);
 
   }
 
-
-  handleClick(e){
-    e.preventDefault();
+  updateInput(e){
+    e.preventDefault()
     this.setState({
-      complete: true
+      newInput: e.target.value
     })
+  }
 
+  updateProp(e){
+    e.preventDefault()
+    this.props.update([this.props.task, this.state.newInput]);
+    this.setState({
+      showUpdateField: false
+    })
   }
 
 
@@ -40,26 +50,39 @@ componentWillReceiveProps(nextProps){
 
 render(){
   return(
-    !this.state.complete ?
 
     <div>
       <li>{this.props.task}
-      {/* change  the below code from a function to a variable */}
         <button onClick={ ()=>this.props.del(this.props.task) }>Delete</button>
+        {/* Based on the boolean of complete, we activate the string of
+          "misson complete" or "mission not complete". By clicking, we are
+          changing the states inline
+         */}
 
-        <button onClick={ (event)=> this.handleClick(event) }>complete</button>
+        {this.state.complete ?
+          <button onClick={ ()=> this.setState({complete: false})}>Not Complete</button> :
+          <button onClick={ ()=> this.setState({complete: true}) }>
+          complete</button>
+        }
+        {/* Based on the boolean of showUpdateField, we can edit the original task
+          to a new task */}
+        {this.state.showUpdateField ?
+          <button onClick={this.updateProp}>Done updating</button> :
+          <button onClick={ ()=> this.setState({ showUpdateField: true }) }>
+          Update</button>
+        }
       </li>
-      <br></br>
-      mission not complete
-    </div>
-    :
-    <div>
-      <li>{this.props.task}
-      {/* change  the below code from a function to a variable */}
-        <button onClick={ ()=>this.props.del(this.props.task) }>Delete</button>
-      </li>
-      <br></br>
-      mission complete
+
+        {/* Here we are showing the input field based on the boolean of showUpdateField */}
+
+        {this.state.showUpdateField ?
+          <form onSubmit={ this.updateProp }>
+          <input placeholder={this.props.task} onChange={ this.updateInput }/>
+          </form>
+          :
+          ""
+        }
+      {this.state.complete ? "mission complete" : "Mission NOT Complete"}
     </div>
     )
   }

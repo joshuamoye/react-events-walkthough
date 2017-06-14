@@ -12,9 +12,11 @@ class App extends React.Component {
 
     this.state={
       tasks: ["first", "second", "third"],
-      input: ''
+      input: '',
+
     }
     // manualling bind your functions here
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
 
@@ -41,11 +43,23 @@ class App extends React.Component {
     })
   }
 
+  handleUpdate(change){
+  this.setState({
+    tasks: this.state.tasks.map(task => task === change[0] ?
+            // transform the one with a matching name
+            change[1]  :
+            // otherwise return original task
+            task
+          )
+    })
+  }
+
   render() {
 
     let tasks = this.state.tasks.map((task)=>
-      // Change this passed in function
-      <Todo task={task} del={ (e)=>this.handleDelete(e)}/>
+      // Add update prop with the handleUpdate function
+      <Todo task={task} del={ (e)=>this.handleDelete(e)}
+      update={ (e)=>this.handleUpdate(e) }/>
     )
 
     return (
