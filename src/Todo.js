@@ -39,13 +39,17 @@ class Todo extends React.Component{
 // to learn more about how this method works below, check out react lifecycles.
 // Docs-----
 // https://facebook.github.io/react/docs/react-component.html#componentwillreceiveprops
+
 componentWillReceiveProps(nextProps){
+  console.log('d')
   if(nextProps !== this.props){
     this.setState({
       complete: false
     })
   }
 }
+
+
 
 
 render(){
