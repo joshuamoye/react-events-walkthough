@@ -41,7 +41,6 @@ class Todo extends React.Component{
 // https://facebook.github.io/react/docs/react-component.html#componentwillreceiveprops
 
 componentWillReceiveProps(nextProps){
-  console.log('d')
   if(nextProps !== this.props){
     this.setState({
       complete: false
