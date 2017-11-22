@@ -14,7 +14,9 @@ class App extends React.Component {
       tasks: ["first", "second", "third"],
       input: ''
     }
-    // manualling bind your functions here
+    //manualling bind your functions here
+    this.handleSubmit= this.handleSubmit.bind(this)
+    this.handleChange= this.handleChange.bind(this)
   }
 
 
@@ -43,15 +45,15 @@ class App extends React.Component {
 
   render() {
 
-    let tasks = this.state.tasks.map((task)=>
+    let tasks = this.state.tasks.map((task, index)=>
       // Change this passed in function
-      <Todo task={task} del={ (e)=>this.handleDelete(e)}/>
+      <Todo key={index} task={task} del={ (e)=>this.handleDelete(e)}/>
     )
 
     return (
       <div>
       {/*Change this passed in function */}
-        <form onSubmit={ (event)=>this.handleSubmit(event) }>
+        <form> {/*Submit={ (event)=>this.handleSubmit(event) }*/}
 
           <input onChange={ (event)=>this.handleChange(event) } />
           <input type="submit"/>
